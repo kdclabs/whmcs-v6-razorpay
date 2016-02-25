@@ -53,10 +53,10 @@ function razorpay_config()
             'Type' => 'text',
             'Size' => '50',
             //'Default' => 'http://',
-            'Description' => 'Enter the full URL for the logo including "<strong>https://</strong>" or "<strong>http://</strong>"<br/>Size: 56x56 px (Max.) | File Type: png/jpg/gif/ico',
+            'Description' => 'ONLY "http<strong>s</strong>://"; else leave blank.<br/><small>Size: 128px X 128px (or higher) | File Type: png/jpg/gif/ico</small>',
         ),
         'themeColor' => array(
-            'FriendlyName' => 'Logo URL',
+            'FriendlyName' => 'Theme Color',
             'Type' => 'text',
             'Size' => '15',
             'Default' => '#15A4D3',
@@ -116,8 +116,10 @@ function razorpay_link($params)
                 'description': 'Inv#".$invoiceId."',";
 	
 	if(isset($themeLogo)&&$themeLogo!=""){
-		$js .= "
-                'image': '".$themeLogo."',";
+		if(strpos($theme_logo,'https://')!== false){
+			$js .= "
+                'image': '".$theme_logo."',";
+		}
 	}
 	if(isset($themeColor)&&$themeColor!=""){
 		$js .= "
